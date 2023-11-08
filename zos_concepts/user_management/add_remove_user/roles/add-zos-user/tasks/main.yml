@@ -185,7 +185,7 @@
 - name: Print password info
   ansible.builtin.debug:
     msg: "UserID: '{{ userid | upper }}' Password: '{{ password }}' Passphrase: '{{ passphrase }}'"
-  when: print_pass is defined and print_pass
+  when: print_pass
 
 - name: Send email containing login credentials to owner of new user
   community.general.mail:
