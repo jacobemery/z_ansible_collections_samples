@@ -11,7 +11,7 @@
     izsam_csv_dsn: ''
     concert_url: ''
     concert_port: ''
-    concert_ai_key: ''
+    concert_api_key: ''
     concert_drupal_key: ''
     concert_api_token: ''
     concert_instance_id: ''
@@ -150,11 +150,11 @@
 
     - name: Get Bearer token
       ansible.builtin.shell: |
-        /usr/bin/curl -k -X POST 'https://{{concert_url}}:{{concert_port}}/core/api/v1/login' \ 
+        /usr/bin/curl -k -X POST 'https://{{ concert_url }}:{{ concert_port }}/core/api/v1/login' \
         -H 'accept: application/json' \
         -H 'InstanceId: {{ concert_instance_id }}' \
         -H 'Content-Type: application/json' \
-        -d '{"password": "{{concert_password }}" , "username": "{{ concert_user }}"}' 
+        -d '{"password": "{{ concert_password }}" , "username": "{{ concert_user }}"}'
       register: login_output
       delegate_to: localhost
 
@@ -164,18 +164,18 @@
 
     - name: Set Concert API Token
       ansible.builtin.set_fact:
-        concert_api_token : "{{ login_output_json.token }}"
+        concert_api_token: "{{ login_output_json.token }}"
 
     - name: Send z APAR data to IBM Concert
       ansible.builtin.shell: |
-        /usr/bin/curl -X POST -ki 'https://{{concert_url}}:{{concert_port}}/grader/api/v1/zsys/upload' \
+        /usr/bin/curl -X POST -ki 'https://{{ concert_url }}:{{ concert_port }}/grader/api/v1/zsys/upload' \
         -F 'files=@playbook_output/izsam_detail.csv'  \
         -F 'files=@playbook_output/resttopology.json' \
         -F 'files=@playbook_output/swi_collated.json' \
-        -H 'Concert-API-Key: {{concert_api_key}}' \
+        -H 'Concert-API-Key: {{ concert_api_key }}' \
         -H 'Drupal-API-Key: {{ concert_drupal_key }}' \
         -H 'Authorization: Bearer {{ concert_api_token }}' \
-        -H 'Concert-URL: 'https://{{concert_url}}:{{concert_port}}/ \
+        -H 'Concert-URL: 'https://{{ concert_url }}:{{ concert_port }}/ \
         -H 'InstanceId: {{ concert_instance_id }}' \
-        -H 'Concert-Application-Name: z_apar' 
+        -H 'Concert-Application-Name: z_apar'
       delegate_to: localhost
