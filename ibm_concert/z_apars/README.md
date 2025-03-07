@@ -46,7 +46,7 @@ Review the required inputs to each playbooks to set up Surveys on AAP so the job
   izsam_csv_dsn: ''
   concert_url: ''
   concert_port: ''
-  concert_ai_key: ''
+  concert_api_key: ''
   concert_drupal_key: ''
   concert_api_token: ''
   concert_instance_id: ''

@@ -16,7 +16,7 @@
 ################################################################################
 
 PYZ: "path_to_python"
-ZOAU: "path_to_zoau"
+ZOAU: "/usr/lpp/IBM/zoautil"
 
 ################################################################################
 # Do not configure, variable substituion will correctly set the
